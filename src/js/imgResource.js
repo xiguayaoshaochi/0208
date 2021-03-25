@@ -68,7 +68,7 @@ function loadCompleteimgArr() {
         canvas_bottom.style.transform = 'translateX(-50%) scale(' + 1 + ')';
         myIdElement.classList.remove("heng");
         myIdElement.classList.add('shu');
-        wb.end_btn1.alpha = 1;
+        wb.end_btn1.alpha = 0;
         textadv.alpha = 1;
         // resizerq.verticalChange();
         // resizerq.shuChange();
@@ -349,12 +349,14 @@ function loadCompleteimgArr() {
       myIdElement.classList.remove("shu");
       myIdElement.classList.add('heng');
       canvas.style.transform = 'translateX(-50%) scale(' + H / W + ')';
+      canvas_b.style.transform = 'translateX(-50%) scale(' + H / W + ')';
       wb.end_btn1.alpha = 0;
       textadv.alpha = 0;
     } else {
       wb.txt2.alpha = 0;
       window.pageState = "shu";
       canvas.style.transform = 'translateX(-50%) scale(' + 1 + ')';
+      canvas_b.style.transform = 'translateX(-50%) scale(' + 1 + ')';
       myIdElement.classList.remove("heng");
       myIdElement.classList.add('shu');
       wb.end_btn1.alpha = 1;

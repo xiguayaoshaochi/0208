@@ -164,6 +164,7 @@
             <filename>ss_c.png</filename>
             <filename>desk.png</filename>
             <filename>focus_bg.png</filename>
+            <filename>pop.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

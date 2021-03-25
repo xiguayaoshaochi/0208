@@ -18,8 +18,9 @@
     [2, 368, 511, 161], 
     [515, 368, 640, 185], 
     [2, 555, 640, 185], 
-    [644, 555, 276, 365], 
-    [922, 555, 276, 365]
+    [644, 555, 80, 298], 
+    [726, 555, 276, 365], 
+    [1004, 555, 276, 365]
 ],
 "animations": {
     
@@ -37,13 +38,14 @@
         "g1":[11], 
         "end_btn_h":[12], 
         "txt1":[13], 
-        "top_r":[14], 
-        "top_h":[15], 
-        "card_r":[16], 
-        "card_h":[17]
+        "top_h":[14], 
+        "top_r":[15], 
+        "pop":[16], 
+        "card_r":[17], 
+        "card_h":[18]
 },
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:4d2aa27fdeb327764e1d4c7be403b07a$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:4a8aa6683d0552a208a54dd10369db2c$",
         "Created with TexturePacker (http://www.texturepacker.com) for EasalJS"
 ]
 }

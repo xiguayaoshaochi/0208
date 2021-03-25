@@ -137,79 +137,139 @@ function addTextTop(con,textarr){
 
 function handTip() {
   var _this = this;
-  _this.start = function (text) {
+  _this.fun=null;
+  _this.pop=null;
+  _this.hand = null;
+  _this.start = function (text,timer) {
     console.log(text)
-    _this.arr=[];
-    _this.textsp=text.split('');
-    for (let index = 0; index < textCon.children.length; index++) {
-      const element = textCon.children[index];
-      // console.log(element)
-      if (typeof element.children !="undefined"&&( element.children[2].text == _this.textsp[0] || element.children[2].text == _this.textsp[1]
-        || element.children[2].text == _this.textsp[2] || element.children[2].text == _this.textsp[3])) {
-        _this.arr.push(element);
-      }
-    }
-    
-    if (_this.arr.length>4) {
-      _this.arr.splice(0,1);
-    }
-    console.log(_this.arr);
+    _this.arr = [];
+    _this.fun = setTimeouc(function () {
+      _this.cc(text);
+    }, timer)
 
-    var handname = 'hand' + random1(1, 9999);
-    _this.hand = addRectBitmap_simple(handname, 'hand', sprite_, json_sprite, 0.5, 0.5, 0, 0, "addArr1", true);
-    _this.hand.x = _this.arr[0].x+36*3;
-    _this.hand.y = _this.arr[0].y+36*3;
-    _this.hand.skewY = 180;
-    _this.hand.alpha=0;
-    _this.arr[0].parent.addChild(_this.hand);
-    if (_this.arr[0].x == _this.arr[1].x) {
-      console.log(text, _this.arr)
-      if (text.indexOf('満場一致') > -1) {
-        var bb = _this.arr.find((el)=>{
-          return el.children[2].text == "満"
-        })
-
-        var bb2 = _this.arr.find((el) => {
-          return el.children[2].text == "致"
-        })
-        console.log(bb, bb2)
-        _this.hand.x = bb.x + 36 * 3;
-        _this.hand.y = bb.y + 36 * 3;
-        cjs.Tween.get(_this.hand, {
-          loop: true
-        }).to({
-          alpha: 1
-        }, 200).to({
-          y: bb2.y + 36 * 3
-        }, 750, cjs.Ease.quadOut).to({
-          alpha: 0
-        }, 200)
-      }else{
-        cjs.Tween.get(_this.hand, { loop: true }).to({
-          alpha: 1
-        }, 200).to({
-          y: _this.arr[3].y + 36 * 3
-        }, 1000, cjs.Ease.quadOut).to({
-          alpha: 0
-        }, 200)
-      }
-      
-    }else{
-        cjs.Tween.get(_this.hand, {
-          loop: true
-        }).to({
-          alpha: 1
-        }, 200).to({
-          x: _this.arr[3].x + 36 * 2
-        }, 750, cjs.Ease.quadOut).to({
-          alpha: 0
-        }, 200)
-    }
   },
+  _this.cc = function name(text) {
+              
+              _this.textsp = text.split('');
+              for (let index = 0; index < textCon.children.length; index++) {
+                const element = textCon.children[index];
+                // console.log(element)
+                if (typeof element.children != "undefined" && (element.children[2].text == _this.textsp[0] || element.children[2].text == _this.textsp[1] ||
+                    element.children[2].text == _this.textsp[2] || element.children[2].text == _this.textsp[3])) {
+                  _this.arr.push(element);
+                }
+              }
+
+              if (_this.arr.length > 4) {
+                _this.arr.splice(0, 1);
+              }
+
+              var popname = 'pop' + random1(1, 9999);
+              _this.pop = addRectBitmap_simple(popname, 'pop', sprite_, json_sprite, 0.5, 0.5, 0, 0, "addArrAll", true);
+              _this.arr[0].parent.addChild(_this.pop);
+              _this.pop.alpha = 0;
+
+              var handname = 'hand' + random1(1, 9999);
+              _this.hand = addRectBitmap_simple(handname, 'hand', sprite_, json_sprite, 0.5, 0.5, 0, 0, "addArr1", true);
+              _this.hand.x = _this.arr[0].x + 36 * 3;
+              _this.hand.y = _this.arr[0].y + 36 * 3;
+              _this.hand.skewY = 180;
+              _this.hand.alpha = 0;
+              _this.arr[0].parent.addChild(_this.hand);
+              if (_this.arr[0].x == _this.arr[1].x) {
+                console.log(text, _this.arr)
+                _this.pop.x = _this.arr[1].x + 36;
+                _this.pop.y = _this.arr[1].y + 36 * 2;
+                if (text.indexOf('満場一致') > -1) {
+                  var bb = _this.arr.find((el) => {
+                    return el.children[2].text == "満"
+                  })
+
+                  var bb2 = _this.arr.find((el) => {
+                    return el.children[2].text == "致"
+                  })
+                  // console.log(bb, bb2)
+                  _this.hand.x = bb.x + 36 * 3;
+                  _this.hand.y = bb.y + 36 * 3;
+                  cjs.Tween.get(_this.hand, {
+                    loop: true
+                  }).to({
+                    alpha: 1
+                  }, 200).to({
+                    y: bb2.y + 36 * 3
+                  }, 750, cjs.Ease.quadOut).to({
+                    alpha: 0
+                  }, 200)
+                } else {
+                  cjs.Tween.get(_this.hand, {
+                    loop: true
+                  }).to({
+                    alpha: 1
+                  }, 200).to({
+                    y: _this.arr[3].y + 36 * 3
+                  }, 1000, cjs.Ease.quadOut).to({
+                    alpha: 0
+                  }, 200)
+                }
+                cjs.Tween.get(_this.pop).to({
+                  alpha: 1
+                }, 350, cjs.Ease.quadOut).call(() => {
+                  cjs.Tween.get(_this.pop, {
+                    loop: true
+                  }).to({
+                    alpha: 1
+                  }, 500, cjs.Ease.quadOut).to({
+                    alpha: 0.6
+                  }, 500, cjs.Ease.quadOut).to({
+                    alpha: 1
+                  }, 500, cjs.Ease.quadOut)
+                })
+
+              } else {
+                _this.pop.rotation = 90;
+                _this.pop.x = _this.arr[1].x + 36 * 2;
+                _this.pop.y = _this.arr[1].y + 36;
+                cjs.Tween.get(_this.hand, {
+                  loop: true
+                }).to({
+                  alpha: 1
+                }, 200).to({
+                  x: _this.arr[3].x + 36 * 2
+                }, 750, cjs.Ease.quadOut).to({
+                  alpha: 0
+                }, 200)
+
+                cjs.Tween.get(_this.pop).to({
+                  alpha: 1
+                }, 350, cjs.Ease.quadOut).call(() => {
+                  cjs.Tween.get(_this.pop, {
+                    loop: true
+                  }).to({
+                    alpha: 1
+                  }, 500, cjs.Ease.quadOut).to({
+                    alpha: 0.6
+                  }, 500, cjs.Ease.quadOut).to({
+                    alpha: 1
+                  }, 500, cjs.Ease.quadOut)
+                })
+              }
+  }
   _this.stop=function(){
+    createjs.clearTimeout(_this.fun);
+    if (_this.arr.length!=0) {
+      _this.arr[0].parent.removeChild(_this.pop);
+      _this.arr[0].parent.removeChild(_this.hand);
+    }
     createjs.Tween.removeTweens(_this.hand);
-    _this.arr[0].parent.removeChild(_this.hand);
+    createjs.Tween.removeTweens(_this.pop);
+    
   },
+  _this.pause = function (text, timer) {
+    createjs.clearTimeout(_this.start);
+    _this.fun = setTimeouc(function () {
+      _this.cc(text);
+    }, timer)
+  }
   _this.delete=function(text){
     var de = tiparr.indexOf(text[0]);
     tiparr.splice(de,1);
@@ -267,9 +327,15 @@ window.dt = [];
 var gameMain = function () {
   var _this = this;
   _this.start=function(){
-    // console.log("start")
     console.log(tiparr[0])
-    h1.start(tiparr[0]);
+    var tt=5;
+    // var cc = bigCon.children.filter((el) => {
+    //   return el.state == "empty"
+    // })
+    // if (cc.length<=4) {
+    //   tt = 4000;
+    // }
+    h1.start(tiparr[0], tt);
     _this.lock=true;
     stage.addEventListener("mousedown", function (e) {
       if (bgm_state==false) {
@@ -431,6 +497,7 @@ var gameMain = function () {
         }, 500, cjs.Ease.backOut).call(()=>{
           // setTimeouc(() => {
           if (bigCon.children.find((el) => {return el.state == "empty"}) == undefined) {
+            success.play();
             person.addChild(end_pop);
             wb.card.alpha = wb.txt1.alpha = wb.end_btn.alpha = 0;
             cjs.Tween.get(wb.end_btn1).to({
@@ -485,7 +552,7 @@ var gameMain = function () {
             _this.start();
           }
             
-        }, 220);
+        }, 400);
         
       }, 350+350+10);
 
